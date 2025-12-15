@@ -13,6 +13,7 @@ struct ContentView: View {
     @Environment(ApplicationData.self) private var appData
     var coordinate = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403)
     var savvyHomes = CLLocationCoordinate2D(latitude: 18.5963, longitude: 73.7396)
+    @State private var selectedItems: MapSelection<MKMapItem>?
     
     var body: some View {
         @Bindable var appData = appData
@@ -39,9 +40,10 @@ struct ContentView: View {
 //            MapPolyline(coordinates: [coordinate, savvyHomes])
 //                .stroke(.red, lineWidth: 5)
 //        }
-        Map(position: $appData.cameraPostion) {
+        Map(position: $appData.cameraPostion, selection: $selectedItems) {
             ForEach(appData.listLocation,id: \.self) { place in
                 Marker(item: place)
+                    .tag(MapSelection(place))
             }
         }
         .onMapCameraChange { context in
@@ -50,6 +52,14 @@ struct ContentView: View {
                 await appData.findPlaces()
             }
         }
+        .onChange(of: selectedItems) { oldValue, newValue in
+            if let item = newValue?.value {
+                print(item.name ?? "Undefined")
+                print(item.placemark.locality ?? "Undefined")
+                print(item.phoneNumber ?? "Undefined")
+            }
+        }
+        
     }
         
 }
