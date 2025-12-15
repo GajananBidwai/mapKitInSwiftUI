@@ -6,19 +6,23 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
+    
+    @Environment(ApplicationData.self) private var appData
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        @Bindable var appData = appData
+        
+//        Map()
+//            .mapStyle(.standard(pointsOfInterest: .including(.cafe))) // Show cafe on map
+//        Map(position: $appData.cameraPostion, interactionModes: .zoom)
+        Map(position: $appData.cameraPostion, bounds: appData.cameraBound) //Can not moves out of 1000 meter parameter
+            
     }
 }
 
 #Preview {
     ContentView()
+        .environment(ApplicationData.shared)
 }

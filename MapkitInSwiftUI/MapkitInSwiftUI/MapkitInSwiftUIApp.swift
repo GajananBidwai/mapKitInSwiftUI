@@ -12,6 +12,7 @@ struct MapkitInSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(ApplicationData.shared)
         }
     }
 }
