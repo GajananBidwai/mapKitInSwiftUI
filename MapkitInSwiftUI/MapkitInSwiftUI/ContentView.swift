@@ -22,7 +22,7 @@ struct ContentView: View {
 //        Map(position: $appData.cameraPostion, interactionModes: .zoom)
 //        Map(position: $appData.cameraPostion, bounds: appData.cameraBound) //Can not moves out of 1000 meter parameter
         
-        Map(position: $appData.cameraPostion) {
+//        Map(position: $appData.cameraPostion) {
 //            Marker("Blue Ridge", coordinate: coordinate)
 //                .tint(.blue)
             
@@ -36,10 +36,22 @@ struct ContentView: View {
 //                .foregroundStyle(.blue)
 //                .mapOverlayLevel(level: .aboveRoads)
             
-            MapPolyline(coordinates: [coordinate, savvyHomes])
-                .stroke(.red, lineWidth: 5)
+//            MapPolyline(coordinates: [coordinate, savvyHomes])
+//                .stroke(.red, lineWidth: 5)
+//        }
+        Map(position: $appData.cameraPostion) {
+            ForEach(appData.listLocation,id: \.self) { place in
+                Marker(item: place)
+            }
+        }
+        .onMapCameraChange { context in
+            appData.cameraPostion = .region(context.region)
+            Task(priority: .background) {
+                await appData.findPlaces()
+            }
         }
     }
+        
 }
 
 #Preview {
