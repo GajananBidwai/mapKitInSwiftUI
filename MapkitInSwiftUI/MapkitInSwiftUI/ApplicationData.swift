@@ -17,7 +17,7 @@ import _MapKit_SwiftUI
     
     
     private init() {
-        let coordinate = CLLocationCoordinate2D(latitude: 40.767382, longitude: -73.97313286)
+        let coordinate = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403)
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         cameraPostion = MapCameraPosition.region(region)
         cameraBound = MapCameraBounds(centerCoordinateBounds: region, minimumDistance: 200, maximumDistance: 1000)
