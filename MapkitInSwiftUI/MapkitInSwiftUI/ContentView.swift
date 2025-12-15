@@ -12,6 +12,8 @@ struct ContentView: View {
     
     @Environment(ApplicationData.self) private var appData
     var coordinate = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403)
+    var savvyHomes = CLLocationCoordinate2D(latitude: 18.5963, longitude: 73.7396)
+    
     var body: some View {
         @Bindable var appData = appData
         
@@ -33,6 +35,9 @@ struct ContentView: View {
 //            MapCircle(center: coordinate, radius: 100)
 //                .foregroundStyle(.blue)
 //                .mapOverlayLevel(level: .aboveRoads)
+            
+            MapPolyline(coordinates: [coordinate, savvyHomes])
+                .stroke(.red, lineWidth: 5)
         }
     }
 }
