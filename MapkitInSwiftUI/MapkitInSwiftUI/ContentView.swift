@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import CoreLocationUI
 
 struct ContentView: View {
     
@@ -16,6 +17,8 @@ struct ContentView: View {
     @State private var selectedItems: MapSelection<MKMapItem>?
     @State private var showCallout: Bool = false
     @Namespace var mapSpace
+    let start = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403)
+    let destination = CLLocationCoordinate2D(latitude: 18.5866, longitude: 73.8134)
     
     var body: some View {
         @Bindable var appData = appData
@@ -114,13 +117,48 @@ struct ContentView: View {
 //                
 //                }
 //            }
-        Map(position: $appData.cameraPostion)
-            .safeAreaInset(edge: .bottom) {
-                Button("Show Street") {
-                    appData.lookAround()
-                }.buttonStyle(.borderedProminent)
+//        Map(position: $appData.cameraPostion)
+//            .safeAreaInset(edge: .bottom) {
+//                Button("Show Street") {
+//                    appData.lookAround()
+//                }.buttonStyle(.borderedProminent)
+//            }
+//            .lookAroundViewer(isPresented: $appData.openView, initialScene: appData.lookScene)
+        
+//        Map(position: $appData.cameraPostion) {
+//            
+//            Marker("Start", coordinate: start)
+//            Marker("Destination", coordinate: destination)
+//            
+//            if let route = appData.route {
+//                MapPolyline(route.polyline)
+//                    .stroke(.red, lineWidth: 5)
+//            }
+//        }
+//        .onAppear {
+//            Task {
+//                await appData.calculateRoute()
+//            }
+//        }
+        
+        Map(position: $appData.cameraPostion) {
+            if appData.isAuthorized {
+                UserAnnotation()
             }
-            .lookAroundViewer(isPresented: $appData.openView, initialScene: appData.lookScene)
+        }
+        .mapControls {
+            if appData.isAuthorized {
+                MapUserLocationButton()
+            }
+        }
+//        .onAppear {
+//            appData.requestAuthorization()
+//        }
+        .safeAreaInset(edge: .bottom) {
+            LocationButton(.currentLocation) {
+                appData.cameraPostion = .userLocation(fallback: .automatic)
+            }.padding()
+        }
     }
         
 }
