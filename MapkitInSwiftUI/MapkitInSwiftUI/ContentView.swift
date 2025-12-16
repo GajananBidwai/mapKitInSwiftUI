@@ -14,6 +14,7 @@ struct ContentView: View {
     var coordinate = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403)
     var savvyHomes = CLLocationCoordinate2D(latitude: 18.5963, longitude: 73.7396)
     @State private var selectedItems: MapSelection<MKMapItem>?
+    @State private var showCallout: Bool = false
     
     var body: some View {
         @Bindable var appData = appData
@@ -45,6 +46,7 @@ struct ContentView: View {
                 Marker(item: place)
                     .tag(MapSelection(place))
             }
+//            .mapItemDetailSelectionAccessory(.callout)
         }
         .onMapCameraChange { context in
             appData.cameraPostion = .region(context.region)
@@ -53,12 +55,16 @@ struct ContentView: View {
             }
         }
         .onChange(of: selectedItems) { oldValue, newValue in
-            if let item = newValue?.value {
-                print(item.name ?? "Undefined")
-                print(item.placemark.locality ?? "Undefined")
-                print(item.phoneNumber ?? "Undefined")
+//            if let item = newValue?.value {
+//                print(item.name ?? "Undefined")
+//                print(item.placemark.locality ?? "Undefined")
+//                print(item.phoneNumber ?? "Undefined")
+//            }
+            if newValue != nil {
+                showCallout = true
             }
         }
+        .mapItemDetailSheet(isPresented: $showCallout, item: selectedItems?.value, displaysMap: true)
         
     }
         
