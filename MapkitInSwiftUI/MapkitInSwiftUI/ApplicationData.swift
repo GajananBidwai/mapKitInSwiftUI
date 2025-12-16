@@ -15,9 +15,12 @@ import _MapKit_SwiftUI
     var cameraBound: MapCameraBounds
     static let shared: ApplicationData = ApplicationData()
     var listLocation: [MKMapItem] = []
+    var lookScene: MKLookAroundScene?
+    var openView: Bool = false
     
     private init() {
-        let coordinate = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403)
+        let coordinate = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403) // Pune
+//        let coordinate = CLLocationCoordinate2D(latitude: 40.7580, longitude: -73.9855) // times Square, NYC
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         cameraPostion = MapCameraPosition.region(region)
         cameraBound = MapCameraBounds(centerCoordinateBounds: region, minimumDistance: 200, maximumDistance: 1000)
@@ -41,5 +44,28 @@ import _MapKit_SwiftUI
             }
         }
     }
+    
+    func lookAround() {
+        guard let region = cameraPostion.region else { return }
+        
+        Task {
+            let request = MKLookAroundSceneRequest(coordinate: region.center)
+
+            do {
+                if let scene = try await request.scene {
+                    await MainActor.run {
+                        self.lookScene = scene
+                        self.openView = true
+                    }
+                } else {
+                    print("Look Around not available at this location")
+                }
+            } catch {
+                print("Look Around error:", error)
+            }
+        }
+    }
+
+    
     
 }

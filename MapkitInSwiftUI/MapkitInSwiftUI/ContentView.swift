@@ -73,29 +73,47 @@ struct ContentView: View {
 //                MapPitchToggle()
 //            }
 //            .mapControlVisibility(.visible)
+//        Map(position: $appData.cameraPostion)
+//            .mapControlVisibility(.hidden)
+//            .safeAreaInset(edge: .top) {
+//                HStack {
+//                    MapCompass(scope: mapSpace)
+//                        .padding(5)
+//                        .background {
+//                            Circle()
+//                                .fill(.thinMaterial)
+//                                .stroke(Color.red, lineWidth: 2)
+//                        }
+//                    Spacer()
+//                    MapPitchToggle(scope: mapSpace)
+//                        .padding(5)
+//                        .background {
+//                            Circle()
+//                                .fill(.thinMaterial)
+//                                .stroke(Color.red, lineWidth: 2)
+//                        }
+//                }.padding()
+//                .frame(minWidth: 0, maxWidth: .infinity)
+//            }
+//            .mapScope(mapSpace)
         Map(position: $appData.cameraPostion)
-            .mapControlVisibility(.hidden)
-            .safeAreaInset(edge: .top) {
-                HStack {
-                    MapCompass(scope: mapSpace)
-                        .padding(5)
-                        .background {
-                            Circle()
-                                .fill(.thinMaterial)
-                                .stroke(Color.red, lineWidth: 2)
-                        }
-                    Spacer()
-                    MapPitchToggle(scope: mapSpace)
-                        .padding(5)
-                        .background {
-                            Circle()
-                                .fill(.thinMaterial)
-                                .stroke(Color.red, lineWidth: 2)
-                        }
-                }.padding()
-                .frame(minWidth: 0, maxWidth: .infinity)
+            .safeAreaInset(edge: .bottom) {
+                if appData.openView {
+                    VStack {
+                        LookAroundPreview(scene: $appData.lookScene)
+                            .frame(height: 200)
+                            .padding()
+                        Button("Hide Street") {
+                            appData.openView = false
+                        }.buttonStyle(.borderedProminent)
+                    }
+                } else {
+                    Button("Show Street") {
+                        appData.lookAround()
+                    }.buttonStyle(.borderedProminent)
+                
+                }
             }
-            .mapScope(mapSpace)
     }
         
 }
