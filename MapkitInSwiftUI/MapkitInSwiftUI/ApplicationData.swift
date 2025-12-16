@@ -19,8 +19,8 @@ import _MapKit_SwiftUI
     var openView: Bool = false
     
     private init() {
-        let coordinate = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403) // Pune
-//        let coordinate = CLLocationCoordinate2D(latitude: 40.7580, longitude: -73.9855) // times Square, NYC
+//        let coordinate = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403) // Pune
+        let coordinate = CLLocationCoordinate2D(latitude: 40.7580, longitude: -73.9855) // times Square, NYC
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         cameraPostion = MapCameraPosition.region(region)
         cameraBound = MapCameraBounds(centerCoordinateBounds: region, minimumDistance: 200, maximumDistance: 1000)

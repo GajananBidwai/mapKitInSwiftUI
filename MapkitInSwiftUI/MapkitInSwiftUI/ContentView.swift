@@ -96,24 +96,31 @@ struct ContentView: View {
 //                .frame(minWidth: 0, maxWidth: .infinity)
 //            }
 //            .mapScope(mapSpace)
+//        Map(position: $appData.cameraPostion)
+//            .safeAreaInset(edge: .bottom) {
+//                if appData.openView {
+//                    VStack {
+//                        LookAroundPreview(scene: $appData.lookScene)
+//                            .frame(height: 200)
+//                            .padding()
+//                        Button("Hide Street") {
+//                            appData.openView = false
+//                        }.buttonStyle(.borderedProminent)
+//                    }
+//                } else {
+//                    Button("Show Street") {
+//                        appData.lookAround()
+//                    }.buttonStyle(.borderedProminent)
+//                
+//                }
+//            }
         Map(position: $appData.cameraPostion)
             .safeAreaInset(edge: .bottom) {
-                if appData.openView {
-                    VStack {
-                        LookAroundPreview(scene: $appData.lookScene)
-                            .frame(height: 200)
-                            .padding()
-                        Button("Hide Street") {
-                            appData.openView = false
-                        }.buttonStyle(.borderedProminent)
-                    }
-                } else {
-                    Button("Show Street") {
-                        appData.lookAround()
-                    }.buttonStyle(.borderedProminent)
-                
-                }
+                Button("Show Street") {
+                    appData.lookAround()
+                }.buttonStyle(.borderedProminent)
             }
+            .lookAroundViewer(isPresented: $appData.openView, initialScene: appData.lookScene)
     }
         
 }
