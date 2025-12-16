@@ -41,30 +41,37 @@ struct ContentView: View {
 //            MapPolyline(coordinates: [coordinate, savvyHomes])
 //                .stroke(.red, lineWidth: 5)
 //        }
-        Map(position: $appData.cameraPostion, selection: $selectedItems) {
-            ForEach(appData.listLocation,id: \.self) { place in
-                Marker(item: place)
-                    .tag(MapSelection(place))
-            }
-//            .mapItemDetailSelectionAccessory(.callout)
-        }
-        .onMapCameraChange { context in
-            appData.cameraPostion = .region(context.region)
-            Task(priority: .background) {
-                await appData.findPlaces()
-            }
-        }
-        .onChange(of: selectedItems) { oldValue, newValue in
-//            if let item = newValue?.value {
-//                print(item.name ?? "Undefined")
-//                print(item.placemark.locality ?? "Undefined")
-//                print(item.phoneNumber ?? "Undefined")
+//        Map(position: $appData.cameraPostion, selection: $selectedItems) {
+//            ForEach(appData.listLocation,id: \.self) { place in
+//                Marker(item: place)
+//                    .tag(MapSelection(place))
 //            }
-            if newValue != nil {
-                showCallout = true
+////            .mapItemDetailSelectionAccessory(.callout)
+//        }
+//        .onMapCameraChange { context in
+//            appData.cameraPostion = .region(context.region)
+//            Task(priority: .background) {
+//                await appData.findPlaces()
+//            }
+//        }
+//        .onChange(of: selectedItems) { oldValue, newValue in
+////            if let item = newValue?.value {
+////                print(item.name ?? "Undefined")
+////                print(item.placemark.locality ?? "Undefined")
+////                print(item.phoneNumber ?? "Undefined")
+////            }
+//            if newValue != nil {
+//                showCallout = true
+//            }
+//        }
+//        .mapItemDetailSheet(isPresented: $showCallout, item: selectedItems?.value, displaysMap: true)
+        Map(position: $appData.cameraPostion)
+            .mapControls {
+                MapCompass()
+                MapScaleView()
+                MapPitchToggle()
             }
-        }
-        .mapItemDetailSheet(isPresented: $showCallout, item: selectedItems?.value, displaysMap: true)
+            .mapControlVisibility(.visible)
         
     }
         
