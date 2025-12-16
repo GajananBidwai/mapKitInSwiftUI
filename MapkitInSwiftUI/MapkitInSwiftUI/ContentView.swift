@@ -15,6 +15,7 @@ struct ContentView: View {
     var savvyHomes = CLLocationCoordinate2D(latitude: 18.5963, longitude: 73.7396)
     @State private var selectedItems: MapSelection<MKMapItem>?
     @State private var showCallout: Bool = false
+    @Namespace var mapSpace
     
     var body: some View {
         @Bindable var appData = appData
@@ -65,14 +66,36 @@ struct ContentView: View {
 //            }
 //        }
 //        .mapItemDetailSheet(isPresented: $showCallout, item: selectedItems?.value, displaysMap: true)
+//        Map(position: $appData.cameraPostion)
+//            .mapControls {
+//                MapCompass()
+//                MapScaleView()
+//                MapPitchToggle()
+//            }
+//            .mapControlVisibility(.visible)
         Map(position: $appData.cameraPostion)
-            .mapControls {
-                MapCompass()
-                MapScaleView()
-                MapPitchToggle()
+            .mapControlVisibility(.hidden)
+            .safeAreaInset(edge: .top) {
+                HStack {
+                    MapCompass(scope: mapSpace)
+                        .padding(5)
+                        .background {
+                            Circle()
+                                .fill(.thinMaterial)
+                                .stroke(Color.red, lineWidth: 2)
+                        }
+                    Spacer()
+                    MapPitchToggle(scope: mapSpace)
+                        .padding(5)
+                        .background {
+                            Circle()
+                                .fill(.thinMaterial)
+                                .stroke(Color.red, lineWidth: 2)
+                        }
+                }.padding()
+                .frame(minWidth: 0, maxWidth: .infinity)
             }
-            .mapControlVisibility(.visible)
-        
+            .mapScope(mapSpace)
     }
         
 }
