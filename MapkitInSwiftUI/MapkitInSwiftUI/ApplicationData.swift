@@ -9,6 +9,7 @@ import Foundation
 import Observation
 import MapKit
 import _MapKit_SwiftUI
+import SwiftUI
 
 @Observable class ApplicationData: @unchecked Sendable {
     var cameraPostion: MapCameraPosition
@@ -22,8 +23,10 @@ import _MapKit_SwiftUI
     var isAuthorized: Bool = false
     
     private init() {
-        let coordinate = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403) // Pune
-//        let coordinate = CLLocationCoordinate2D(latitude: 40.7580, longitude: -73.9855) // times Square, NYC
+//        let coordinate = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403) // Pune
+        
+        let coordinate = CLLocationCoordinate2D(latitude: 40.7580, longitude: -73.9855) // times Square, NYC
+        
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         cameraPostion = MapCameraPosition.region(region)
         cameraBound = MapCameraBounds(centerCoordinateBounds: region, minimumDistance: 200, maximumDistance: 1000)
@@ -71,8 +74,10 @@ import _MapKit_SwiftUI
 
    
     func calculateRoute() async {
-        let start = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403)
-        let destination = CLLocationCoordinate2D(latitude: 18.5866, longitude: 73.8134)
+//        let start = CLLocationCoordinate2D(latitude: 18.5755, longitude: 73.7403)
+//        let destination = CLLocationCoordinate2D(latitude: 18.5866, longitude: 73.8134)
+        let start = CLLocationCoordinate2D(latitude: 40.7580, longitude: -73.9855) // times Square, NYC
+        let destination = CLLocationCoordinate2D(latitude: 40.7661, longitude: -73.9776)
         
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: start))

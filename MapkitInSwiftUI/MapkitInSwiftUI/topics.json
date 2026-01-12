@@ -1,0 +1,18 @@
+{
+  "topics": [
+    { "id": 1, "name": "points-Of-Interest" },
+    { "id": 2, "name": "MarkerView" },
+    { "id": 3, "name": "AnnotationView" },
+    { "id": 4, "name": "MapCircleView" },
+    { "id": 5, "name": "MapPolylineView" },
+    { "id": 6, "name": "FindPlace" },
+    { "id": 7, "name": "DetailSheet" },
+    { "id": 8, "name": "CompassMapPitchToogle" },
+    { "id": 9, "name": "LookAroundViewSheet" },
+    { "id": 10, "name": "LookAroundViewer" },
+    { "id": 11, "name": "CalculateRoute" },
+    { "id": 13, "name": "Camera" },
+    { "id": 14, "name": "MapContent" }
+  ]
+}
+

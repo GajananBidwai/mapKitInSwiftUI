@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct MapkitInSwiftUIApp: App {
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TopicsListView()
                 .environment(ApplicationData.shared)
         }
     }

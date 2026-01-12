@@ -31,20 +31,21 @@ struct ContentView: View {
 //        Map(position: $appData.cameraPostion) {
 //            Marker("Blue Ridge", coordinate: coordinate)
 //                .tint(.blue)
-            
+//            
 //            Annotation("Blue ridge", coordinate: coordinate) {
 //                Image(.sample)
 //                    .resizable()
 //                    .frame(width: 50, height: 50)
 //            }
-            
+//            
 //            MapCircle(center: coordinate, radius: 100)
 //                .foregroundStyle(.blue)
 //                .mapOverlayLevel(level: .aboveRoads)
-            
+//            
 //            MapPolyline(coordinates: [coordinate, savvyHomes])
 //                .stroke(.red, lineWidth: 5)
 //        }
+        
 //        Map(position: $appData.cameraPostion, selection: $selectedItems) {
 //            ForEach(appData.listLocation,id: \.self) { place in
 //                Marker(item: place)
@@ -59,11 +60,11 @@ struct ContentView: View {
 //            }
 //        }
 //        .onChange(of: selectedItems) { oldValue, newValue in
-////            if let item = newValue?.value {
-////                print(item.name ?? "Undefined")
-////                print(item.placemark.locality ?? "Undefined")
-////                print(item.phoneNumber ?? "Undefined")
-////            }
+//            if let item = newValue?.value {
+//                print(item.name ?? "Undefined")
+//                print(item.placemark.locality ?? "Undefined")
+//                print(item.phoneNumber ?? "Undefined")
+//            }
 //            if newValue != nil {
 //                showCallout = true
 //            }
@@ -141,24 +142,25 @@ struct ContentView: View {
 //            }
 //        }
         
-        Map(position: $appData.cameraPostion) {
-            if appData.isAuthorized {
-                UserAnnotation()
-            }
-        }
-        .mapControls {
-            if appData.isAuthorized {
-                MapUserLocationButton()
-            }
-        }
+//        Map(position: $appData.cameraPostion) {
+//            if appData.isAuthorized {
+//                UserAnnotation()
+//            }
+//        }
+//        .mapControls {
+//            if appData.isAuthorized {
+//                MapUserLocationButton()
+//            }
+//        }
 //        .onAppear {
 //            appData.requestAuthorization()
 //        }
-        .safeAreaInset(edge: .bottom) {
-            LocationButton(.currentLocation) {
-                appData.cameraPostion = .userLocation(fallback: .automatic)
-            }.padding()
-        }
+//        .safeAreaInset(edge: .bottom) {
+//            LocationButton(.currentLocation) {
+//                appData.cameraPostion = .userLocation(fallback: .automatic)
+//            }.padding()
+//        }
+
     }
         
 }
